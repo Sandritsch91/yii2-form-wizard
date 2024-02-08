@@ -1,0 +1,55 @@
+{
+	"name": "sandritsch91/yii2-widget-form-wizard",
+	"type": "yii2-extension",
+	"description": "A Yii2 form-wizard widget for bootstrap 5",
+	"keywords": [
+		"yii2",
+		"widget",
+		"form",
+		"wizard",
+		"form-wizard",
+        "bootstrap",
+        "bootstrap5"
+	],
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Sandritsch91",
+			"email": "sandritsch91@gmail.com"
+		}
+	],
+	"support": {
+		"source": "https://github.com/sandritsch91/yii2-widget-flatpickr",
+		"issues": "https://github.com/sandritsch91/yii2-widget-flatpickr/issues"
+	},
+	"minimum-stability": "stable",
+	"require": {
+		"php": ">=8.0",
+		"yiisoft/yii2": "^2.0.20"
+    },
+	"require-dev": {
+        "ext-gd": "*",
+		"yiisoft/yii2-coding-standards": "~2.0",
+		"phpunit/phpunit": "*"
+	},
+	"autoload": {
+		"psr-4": {
+			"sandritsch91\\yii2\\formwizard\\": "src"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"yiiunit\\extensions\\formwizard\\": "tests"
+		}
+	},
+	"extra": {
+		"branch-alias": {
+			"dev-master": "2.0.x-dev"
+		}
+	},
+	"config": {
+		"allow-plugins": {
+			"yiisoft/yii2-composer": true
+		}
+	}
+}
