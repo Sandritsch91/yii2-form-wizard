@@ -1,0 +1,11 @@
+msgctxt "sandritsch91/yii2-form-wizard"
+msgid "Next"
+msgstr "Weiter"
+
+msgctxt "sandritsch91/yii2-form-wizard"
+msgid "Previous"
+msgstr "Zurück"
+
+msgctxt "sandritsch91/yii2-form-wizard"
+msgid "Finish"
+msgstr "Abschließen"

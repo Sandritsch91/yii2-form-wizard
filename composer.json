@@ -25,12 +25,12 @@
 	"minimum-stability": "stable",
 	"require": {
 		"php": ">=8.0",
-		"yiisoft/yii2": "^2.0.20"
+		"yiisoft/yii2": "^2.0.20",
+        "yiisoft/yii2-bootstrap5": "^2.0.0"
     },
 	"require-dev": {
-        "ext-gd": "*",
-		"yiisoft/yii2-coding-standards": "~2.0",
-		"phpunit/phpunit": "*"
+		"phpunit/phpunit": "*",
+		"yiisoft/yii2-coding-standards": "*"
 	},
 	"autoload": {
 		"psr-4": {
