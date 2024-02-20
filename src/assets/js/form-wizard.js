@@ -24,7 +24,7 @@ class FormWizard {
 
         Object.assign(this.options, options);
         Object.assign(this.callbacks, callbacks);
-        this.container = document.getElementById(containerSelector);
+        this.container = document.querySelector(containerSelector);
         this._bootstrap();
     }
 

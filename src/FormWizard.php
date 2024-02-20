@@ -27,7 +27,7 @@ class FormWizard extends Widget
     ];
 
     /**
-     * The model to use for the form
+     * The model to use in the form
      * @var Model
      */
     public Model $model;
@@ -71,13 +71,7 @@ class FormWizard extends Widget
      * @see Tabs
      * @var array
      */
-    public array $tabOptions = [
-        'options' => [
-            'options' => [
-                'class' => 'nav-pills'
-            ]
-        ]
-    ];
+    public array $tabOptions = [];
 
     /**
      * Default button html options
@@ -122,16 +116,16 @@ class FormWizard extends Widget
         if (empty($this->tabOptions['items'])) {
             throw new InvalidConfigException('You must specify at least one step.');
         }
-
-        $id = $this->getId();
-        $this->clientOptions['containerSelector'] = '#' . $id;
-
         foreach ($this->tabOptions['items'] as &$item) {
             ArrayHelper::remove($item, 'items');
             ArrayHelper::remove($item, 'url');
         }
 
         // Set default selectors
+        if (empty($this->clientOptions['containerSelector'])) {
+            $id = $this->getId();
+            $this->clientOptions['containerSelector'] = '#' . $id;
+        }
         if (!isset($this->clientOptions['previousSelector'])) {
             $this->clientOptions['previousSelector'] = '[data-' . trim(Html::renderTagAttributes($this->buttonOptions['previous']['data'])) . ']';
         }
@@ -217,7 +211,7 @@ class FormWizard extends Widget
         $view = $this->getView();
         FormWizardAsset::register($view);
 
-        $id = $this->options['id'];
+        $id = $this->clientOptions['containerSelector'];
         $options = Json::encode($this->clientOptions);
         $this->clientEvents = Json::encode($this->clientEvents);
         $view->registerJs("window.formWizard = new FormWizard('$id', $options, $this->clientEvents);");
