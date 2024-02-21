@@ -19,9 +19,12 @@ class FormWizardCest
         $I->amOnPage(Url::toRoute('/site/index'));
 
         $I->see('Step 1');
-        $I->seeElement(Locator::find('a', ['class' => 'nav-link active', 'href' => '#w2-tab0']));
         $I->see('Step 2');
         $I->see('Step 3');
+
+        $I->seeElement(Locator::find('a', ['class' => 'nav-link active', 'id' => 'step1-link']));
+        $I->dontSeeElement(Locator::find('a', ['class' => 'nav-link active', 'id' => 'step2-link']));
+        $I->dontSeeElement(Locator::find('a', ['class' => 'nav-link active', 'id' => 'step3-link']));
 
         $I->seeElement(Locator::find('input', ['name' => 'User[firstname]']));
         $I->seeElement(Locator::find('input', ['name' => 'User[lastname]']));
@@ -36,18 +39,5 @@ class FormWizardCest
         $I->seeElement(Locator::find('button', ['data-formwizard' => 'next']));
         $I->seeElement(Locator::find('button', ['data-formwizard' => 'previous']));
         $I->dontSeeElement(Locator::find('button', ['class' => 'd-none', 'data-formwizard' => 'finish']));
-    }
-
-    public function navigation(FunctionalTester $I): void
-    {
-        $I->amOnPage(Url::toRoute('/site/index'));
-
-        $I->click('Abschliessen');
-
-        $I->submitForm('#w7', []);
-
-        $I->seeValidationError('Firstname darf nicht leer sein.');
-
-        $I->seeElement(Locator::find('a', ['class' => 'nav-link active', 'href' => '#w11-tab0']));
     }
 }

@@ -43,7 +43,7 @@
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"yiiunit\\extensions\\formwizard\\": "tests"
+			"sandritsch91\\yii2\\formwizard\\tests\\": "tests"
 		}
 	},
 	"extra": {

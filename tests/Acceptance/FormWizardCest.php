@@ -19,7 +19,7 @@ class FormWizardCest
         $I->amOnPage(Url::toRoute(['/site/test']));
 
         $I->see('Step 1');
-        $I->seeElement(Locator::find('a', ['class' => 'nav-link active', 'href' => '#w2-tab0']));
+        $I->seeElement(Locator::find('a', ['class' => 'nav-link active', 'id' => 'step1-link']));
         $I->see('Step 2');
         $I->see('Step 3');
 
@@ -52,7 +52,7 @@ class FormWizardCest
         $I->click('Next');
         $I->wait(1);
 
-        $I->seeElement(Locator::find('a', ['class' => 'nav-link active', 'href' => '#w2-tab1']));
+        $I->seeElement(Locator::find('a', ['class' => 'nav-link active', 'id' => 'step2-link']));
 
         $I->click('Next');
         $I->wait(1);
@@ -66,7 +66,7 @@ class FormWizardCest
         $I->click('Next');
         $I->wait(1);
 
-        $I->seeElement(Locator::find('a', ['class' => 'nav-link active', 'href' => '#w2-tab2']));
+        $I->seeElement(Locator::find('a', ['class' => 'nav-link active', 'id' => 'step3-link']));
         $I->seeElement('button', ['data-formwizard' => 'previous']);
         $I->dontSeeElement('button', ['data-formwizard' => 'next']);
         $I->seeElement('button', ['data-formwizard' => 'finish']);

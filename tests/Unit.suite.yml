@@ -8,4 +8,9 @@ modules:
         - Asserts
 step_decorators: ~
 coverage:
-    enabled: false
+    enabled: true
+    include:
+        - /*
+    exclude:
+        - tests/*
+        - vendor/*

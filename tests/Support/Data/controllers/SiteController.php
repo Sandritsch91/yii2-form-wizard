@@ -11,7 +11,6 @@ class SiteController extends Controller
     {
         $model = new User();
         if (\Yii::$app->request->post() && $model->load(\Yii::$app->request->post()) && $model->validate()) {
-            echo var_dump(\Yii::$app->request->post());
             die;
         }
 

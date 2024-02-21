@@ -1,15 +1,16 @@
 <?php
 
 
-namespace yiiunit\extensions\formwizard\Unit;
+namespace sandritsch91\yii2\formwizard\tests\Unit;
 
+use Codeception\Test\Unit;
 use sandritsch91\yii2\formwizard\FormWizard;
 use sandritsch91\yii2\formwizard\tests\Support\Data\models\User;
 use sandritsch91\yii2\formwizard\tests\Support\UnitTester;
 use yii\base\InvalidConfigException;
 use yii\web\Application;
 
-class FormWizardTest extends \Codeception\Test\Unit
+class FormWizardTest extends Unit
 {
     protected UnitTester $tester;
     protected User $model;
@@ -49,6 +50,18 @@ class FormWizardTest extends \Codeception\Test\Unit
     }
 
     // tests
+
+    public function testMissingProperties()
+    {
+        $this->tester->expectThrowable(InvalidConfigException::class, function () {
+            new FormWizard();
+        });
+        $this->tester->expectThrowable(InvalidConfigException::class, function () {
+            new FormWizard([
+                'model' => $this->model
+            ]);
+        });
+    }
 
     /**
      * @throws \Throwable

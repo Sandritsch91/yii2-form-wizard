@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace sandritsch91\yii2\formwizard\tests\Support;
 
+use Codeception\Actor;
+
 /**
  * Inherited Methods
  * @method void wantTo($text)
@@ -19,7 +21,7 @@ namespace sandritsch91\yii2\formwizard\tests\Support;
  *
  * @SuppressWarnings(PHPMD)
 */
-class FunctionalTester extends \Codeception\Actor
+class FunctionalTester extends Actor
 {
     use _generated\FunctionalTesterActions;
 
