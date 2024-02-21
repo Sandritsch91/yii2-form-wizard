@@ -10,21 +10,19 @@ echo FormWizard::widget([
     'tabOptions' => [
         'items' => [
             [
-                'label' => 'Step 1',
+                'label' => 'Step One',
                 'view' => '@app/Support/Data/views/site/step1',
                 'linkOptions' => [
                     'id' => 'step1-link',
                 ]
             ],
             [
-                'label' => 'Step 2',
                 'view' => '@app/Support/Data/views/site/step2',
                 'linkOptions' => [
                     'id' => 'step2-link',
                 ]
             ],
             [
-                'label' => 'Step 3',
                 'view' => '@app/Support/Data/views/site/step3',
                 'linkOptions' => [
                     'id' => 'step3-link',

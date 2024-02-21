@@ -18,9 +18,9 @@ class FormWizardCest
     {
         $I->amOnPage(Url::toRoute('/site/index'));
 
-        $I->see('Step 1');
-        $I->see('Step 2');
-        $I->see('Step 3');
+        $I->see('Step One');
+        $I->see('Schritt 2');
+        $I->see('Schritt 3');
 
         $I->seeElement(Locator::find('a', ['class' => 'nav-link active', 'id' => 'step1-link']));
         $I->dontSeeElement(Locator::find('a', ['class' => 'nav-link active', 'id' => 'step2-link']));
