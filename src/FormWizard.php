@@ -10,6 +10,7 @@ use yii\bootstrap5\Widget;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\helpers\ReplaceArrayValue;
 
 /**
  * Class FormWizard
@@ -22,9 +23,7 @@ class FormWizard extends Widget
      * The id will be set automatically
      * @var array
      */
-    public $options = [
-        'class' => 'form-wizard'
-    ];
+    public $options = [];
 
     /**
      * The model to use in the form
@@ -80,26 +79,7 @@ class FormWizard extends Widget
      * If you change the data-formwizard attribute, you have to change the clientOption selectors as well
      * @var array
      */
-    public array $buttonOptions = [
-        'previous' => [
-            'class' => ['btn', 'btn-secondary'],
-            'data' => [
-                'formwizard' => 'previous'
-            ]
-        ],
-        'next' => [
-            'class' => ['btn', 'btn-primary'],
-            'data' => [
-                'formwizard' => 'next'
-            ]
-        ],
-        'finish' => [
-            'class' => ['btn', 'btn-primary'],
-            'data' => [
-                'formwizard' => 'finish'
-            ]
-        ]
-    ];
+    public array $buttonOptions = [];
 
     /**
      * {@inheritDoc}
@@ -109,23 +89,53 @@ class FormWizard extends Widget
     {
         parent::init();
 
+        // check if necessary options are set
         if (empty($this->model)) {
             throw new InvalidConfigException('You must specify the model class.');
         }
-
         if (empty($this->tabOptions['items'])) {
             throw new InvalidConfigException('You must specify at least one step.');
         }
+
+        // Remove items and url from tabOptions
         foreach ($this->tabOptions['items'] as &$item) {
             ArrayHelper::remove($item, 'items');
             ArrayHelper::remove($item, 'url');
         }
 
-        // Set default selectors
-        if (empty($this->clientOptions['containerSelector'])) {
-            $id = $this->getId();
-            $this->clientOptions['containerSelector'] = '#' . $id;
+        // Options
+        $this->options = ArrayHelper::merge($this->options, [
+            'class' => 'form-wizard'
+        ]);
+        if (!isset($this->options['id'])) {
+            $this->options['id'] = $this->getId();
         }
+        $this->clientOptions['containerSelector'] = "#" . $this->options['id'];
+
+        // Button Options
+        $this->buttonOptions['previous'] = ArrayHelper::merge(
+            $this->buttonOptions['previous'] ?? [],
+            ['data' => ['formwizard' => 'previous']]
+        );
+        $this->buttonOptions['next'] = ArrayHelper::merge(
+            $this->buttonOptions['next'] ?? [],
+            ['data' => ['formwizard' => 'next']]
+        );
+        $this->buttonOptions['finish'] = ArrayHelper::merge(
+            $this->buttonOptions['finish'] ?? [],
+            ['data' => ['formwizard' => 'finish']]
+        );
+        if (!isset($this->buttonOptions['previous']['class'])) {
+            $this->buttonOptions['previous']['class'] = ['btn', 'btn-primary'];
+        }
+        if (!isset($this->buttonOptions['next']['class'])) {
+            $this->buttonOptions['next']['class'] = ['btn', 'btn-primary'];
+        }
+        if (!isset($this->buttonOptions['finish']['class'])) {
+            $this->buttonOptions['finish']['class'] = ['btn', 'btn-primary'];
+        }
+
+        // Set default selectors
         if (!isset($this->clientOptions['previousSelector'])) {
             $this->clientOptions['previousSelector'] = '[data-' . trim(Html::renderTagAttributes($this->buttonOptions['previous']['data'])) . ']';
         }
@@ -136,6 +146,7 @@ class FormWizard extends Widget
             $this->clientOptions['finishSelector'] = '[data-' . trim(Html::renderTagAttributes($this->buttonOptions['finish']['data'])) . ']';
         }
 
+        // Pass validateSteps to clientOptions
         if (isset($this->validateSteps)) {
             $this->clientOptions['validateSteps'] = $this->validateSteps;
         }

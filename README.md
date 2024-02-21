@@ -67,7 +67,6 @@ echo FormWizard::widget([
         'finish' => [...]
     ],
     'clientOptions' => [                                                        // Client options for the form wizard, if you need to change them
-        // 'containerSelector' => '...',                                        // The container of the wizard. If you change this, make sure it matches the id of the container
         // 'finishSelector' => '...',
         // 'nextSelector' => '...',
         // 'previousSelector' => '...',

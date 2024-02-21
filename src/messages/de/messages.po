@@ -8,4 +8,4 @@ msgstr "Zurück"
 
 msgctxt "sandritsch91/yii2-form-wizard"
 msgid "Finish"
-msgstr "Abschließen"
+msgstr "Abschliessen"
