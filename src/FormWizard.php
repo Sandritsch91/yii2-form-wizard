@@ -107,9 +107,6 @@ class FormWizard extends Widget
         $this->options = ArrayHelper::merge($this->options, [
             'class' => 'form-wizard'
         ]);
-        if (!isset($this->options['id'])) {
-            $this->options['id'] = $this->getId();
-        }
         $this->clientOptions['containerSelector'] = "#" . $this->options['id'];
 
         // Button Options
