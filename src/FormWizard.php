@@ -10,7 +10,6 @@ use yii\bootstrap5\Widget;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
-use yii\helpers\ReplaceArrayValue;
 
 /**
  * Class FormWizard
@@ -97,10 +96,16 @@ class FormWizard extends Widget
             throw new InvalidConfigException('You must specify at least one step.');
         }
 
+        // translations
+        $this->registerTranslations();
+
         // Remove items and url from tabOptions
-        foreach ($this->tabOptions['items'] as &$item) {
+        foreach ($this->tabOptions['items'] as $key => &$item) {
             ArrayHelper::remove($item, 'items');
             ArrayHelper::remove($item, 'url');
+            if (!isset($item['label'])) {
+                $item['label'] = \Yii::t('sandritsch91/yii2-form-wizard', 'Step {0}', [$key + 1]);
+            }
         }
 
         // Options
@@ -147,9 +152,6 @@ class FormWizard extends Widget
         if (isset($this->validateSteps)) {
             $this->clientOptions['validateSteps'] = $this->validateSteps;
         }
-
-        // translations
-        $this->registerTranslations();
     }
 
     /**

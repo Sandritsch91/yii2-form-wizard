@@ -38,7 +38,7 @@ echo FormWizard::widget([
     'tabOptions' => [                                                           // These are the options for the Bootstrap Tab widget                                        
         'items' => [
             [
-                'label' => 'Step 1',                                            // The label of the tab
+                'label' => 'Step 1',                                            // The label of the tab, if omitted, a default-label will be used (Step 1, Step 2, ...)
                 'content' => $this->render('_step1', ['model' => $model]),      // Either the content of the tab
             ],
             [

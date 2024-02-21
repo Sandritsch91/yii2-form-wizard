@@ -9,3 +9,7 @@ msgstr "Zurück"
 msgctxt "sandritsch91/yii2-form-wizard"
 msgid "Finish"
 msgstr "Abschliessen"
+
+msgctxt "sandritsch91/yii2-form-wizard"
+msgid "Step {0}"
+msgstr "Schritt {0}"
