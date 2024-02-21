@@ -1,0 +1,32 @@
+# Codeception Test Suite Configuration
+#
+# Suite for acceptance tests.
+# Perform tests in browser using the WebDriver or PhpBrowser.
+# If you need both WebDriver and PHPBrowser tests - create a separate suite.
+
+actor: AcceptanceTester
+modules:
+    enabled:
+        - WebDriver:
+            url: 'http://formwizard.ch/web/index-test.php'
+            browser: chrome
+            capabilities:
+                chromeOptions:
+                    args: ["--headless", "--disable-gpu"]
+            window_size: 1920x1080
+        - Yii2:
+            part: [init, orm, fixtures] # allow to use AR methods
+            cleanup: true # don't wrap test in transaction
+            entryScript: index-test.php
+            transaction: false
+        - \Codeception\Module\Asserts
+# add Codeception\Step\Retry trait to AcceptanceTester to enable retries
+step_decorators:
+    - Codeception\Step\ConditionalAssertion
+    - Codeception\Step\TryTo
+    - Codeception\Step\Retry
+coverage:
+    enabled: false
+    remote: true
+    include:
+        - src/*

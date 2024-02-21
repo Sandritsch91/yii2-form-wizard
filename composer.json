@@ -29,7 +29,11 @@
         "yiisoft/yii2-bootstrap5": "^2.0.0"
     },
 	"require-dev": {
-		"phpunit/phpunit": "*",
+		"codeception/module-asserts": "*",
+		"codeception/module-webdriver": "*",
+        "codeception/module-yii2": "*",
+        "codeception/specify": "*",
+        "codeception/verify": "*",
 		"yiisoft/yii2-coding-standards": "*"
 	},
 	"autoload": {

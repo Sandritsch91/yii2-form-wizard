@@ -84,3 +84,14 @@ echo FormWizard::widget([
 Contributions are welcome.
 
 If you have any questions, ideas, suggestions or bugs, please open an issue.
+
+### Testing
+
+##### Accpetance tests
+To enable acceptance tests you have to:
+- install java jre
+- install nodejs
+- install selenium-standalone: `npm install -g selenium-standalone`
+- start selenium-standalone: `selenium-standalone install && selenium-standalone start`
+
+After the initial installation you only have to start the selenium-standalone server and run the tests ```selenium-standalone start```.
