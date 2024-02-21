@@ -49,7 +49,7 @@ echo FormWizard::widget([
         'navType' => 'nav-pills'
     ],
     // optional
-    'validateSteps => [                                                         // Optional, pass the fields to be validated for each step.                 
+    'validateSteps' => [                                                        // Optional, pass the fields to be validated for each step.                 
         ['name', 'surname'],
         [],                                                                     // Leave array empty if no validation is needed  
         ['email', 'password']
