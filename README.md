@@ -88,11 +88,114 @@ If you have any questions, ideas, suggestions or bugs, please open an issue.
 
 ### Testing
 
-##### Accpetance tests
-To enable acceptance tests you have to:
-- install java jre
+This package uses codeception for testing. To run the tests, run the following commands:
+
+```php.exe .\vendor\bin\codecept run``` for all test suites
+
+#### Unit tests
+
+run ```php.exe .\vendor\bin\codecept run Unit``` in the root directory of this repository.
+
+#### Functional tests
+
+run ```php.exe .\vendor\bin\codecept run Functional``` in the root directory of this repository.
+
+#### Accpetance tests
+
+To be able to run acceptance tests, a few requirements are needed:
+
+For Windows:\
+
+- install java runtime environment
 - install nodejs
 - install selenium-standalone: `npm install -g selenium-standalone`
 - start selenium-standalone: `selenium-standalone install && selenium-standalone start`
+- host a yii2 application on a server or locally via ```./yii serve```
+    - add this plugin as a dependency to your ```composer.json``` and update dependencies
+    - site must be reachable over http://formwizard.com/
+    - add an action ```actionTest``` to the ```SiteController```, as described below
+    - this action must return a view file, as described below
+    - run ```php.exe .\vendor\bin\codecept run Acceptance```
 
-After the initial installation you only have to start the selenium-standalone server and run the tests ```selenium-standalone start```.
+For Linux:  
+Never did that before, but I think it is similar to the Windows setup.
+
+The action in the SiteController:
+
+```php
+public function actionTest(): string
+{
+    include __DIR__ . '/../vendor/sandritsch91/yii2-widget-form-wizard/tests/Support/Data/models/User.php';
+
+    $model = new User();
+
+    if (Yii::$app->request->post() && $model->load(Yii::$app->request->post()) && $model->validate()) {
+        return 'success';
+    }
+
+    return $this->render('test', [
+        'model' => new User()
+    ]);
+}
+```
+
+The view returned by the action:
+
+```php
+/** @var User $model */
+
+use sandritsch91\yii2\formwizard\FormWizard;
+use sandritsch91\yii2\formwizard\tests\Support\Data\models\User;
+
+$wizard = FormWizard::widget([
+    'model' => $model,
+    'tabOptions' => [
+        'options' => [
+            'class' => 'mb-3'
+        ],
+        'items' => [
+            [
+                'label' => 'Step 1',
+                'view' => '@app/vendor/sandritsch91/yii2-widget-form-wizard/tests/Support/Data/views/site/step1',
+                'linkOptions' => [
+                    'id' => 'step1-link',,
+                    'params' => [
+                        'test' => 'some test variable'
+                    ]
+                ]
+            ],
+            [
+                'label' => 'Step 2',
+                'view' => '@app/vendor/sandritsch91/yii2-widget-form-wizard/tests/Support/Data/views/site/step2',
+                'linkOptions' => [
+                    'id' => 'step2-link',
+                ]
+            ],
+            [
+                'label' => 'Step 3',
+                'view' => '@app/vendor/sandritsch91/yii2-widget-form-wizard/tests/Support/Data/views/site/step3',
+                'linkOptions' => [
+                    'id' => 'step3-link',
+                ]
+            ]
+        ],
+        'navType' => 'nav-pills'
+    ],
+    'validateSteps' => [
+        ['firstname', 'lastname'],
+        ['username', 'password', 'password_validate'],
+        ['email']
+    ],
+]);
+
+echo \yii\helpers\Html::tag('div', $wizard, [
+    'class' => 'col-4'
+]);
+```
+
+After the initial installation, you only have to start the selenium-standalone server ```selenium-standalone start```
+and run the tests ```php.exe .\vendor\bin\codecept run Acceptance``` in the root directory of this repository.
+
+If you do not want to setup an application, just run the unit and functional tests by
+running ```php.exe .\vendor\bin\codecept run Unit,Functional```, I can modify and run the acceptance tests for you,
+after you opened a pull request.

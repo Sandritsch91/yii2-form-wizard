@@ -14,6 +14,9 @@ echo FormWizard::widget([
                 'view' => '@app/Support/Data/views/site/step1',
                 'linkOptions' => [
                     'id' => 'step1-link',
+                ],
+                'params' => [
+                    'test' => 'some test variable'
                 ]
             ],
             [

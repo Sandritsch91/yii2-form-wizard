@@ -8,7 +8,7 @@ actor: AcceptanceTester
 modules:
     enabled:
         - WebDriver:
-            url: 'http://formwizard.ch/web/index-test.php'
+            url: 'http://formwizard.com/web/index-test.php'
             browser: chrome
             capabilities:
                 chromeOptions:

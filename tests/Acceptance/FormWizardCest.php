@@ -32,6 +32,8 @@ class FormWizardCest
         $I->seeElement(Locator::find('button', ['data-formwizard' => 'next']));
         $I->seeElement(Locator::find('button', ['data-formwizard' => 'previous']));
         $I->dontSeeElement(Locator::find('button', ['class' => 'd-none', 'data-formwizard' => 'finish']));
+
+        $I->see('some test variable');
     }
 
     public function navigation(AcceptanceTester $I): void
