@@ -83,8 +83,10 @@ class FormWizard {
         this.tabNextIndex = this.getNextIndex();
         this.tabMaxIndex = 1;                           // Max index user can go forwards
 
-        this.container.querySelector(this.options.previousSelector).setAttribute('disabled', 'disabled');
-        this.container.querySelector(this.options.finishSelector).classList.add('d-none');
+        if (this.container.querySelectorAll('.nav .nav-item').length > 1) {
+            this.container.querySelector(this.options.previousSelector).setAttribute('disabled', 'disabled');
+            this.container.querySelector(this.options.finishSelector).classList.add('d-none');
+        }
 
         this.container.querySelectorAll('.nav .nav-item a:not(.active)').forEach((element) => {
             element.classList.add('disabled');
@@ -101,8 +103,10 @@ class FormWizard {
      */
     _addEventBindings() {
         // Buttons
-        this.container.querySelector(this.options.previousSelector).addEventListener('click', () => this._previous());
-        this.container.querySelector(this.options.nextSelector).addEventListener('click', () => this._next());
+        if (this.container.querySelectorAll('.nav .nav-item').length > 1) {
+            this.container.querySelector(this.options.previousSelector).addEventListener('click', () => this._previous());
+            this.container.querySelector(this.options.nextSelector).addEventListener('click', () => this._next());
+        }
         this.container.querySelector(this.options.finishSelector).addEventListener('click', () => this._finish());
 
         // Tabs

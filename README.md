@@ -44,6 +44,7 @@ echo FormWizard::widget([
             [
                 'label' => 'Step 2',
                 'view' => '/test/_step2',                                       // or a view to be rendered. $model and $form are passed to the view
+                'params' => ['a' => 1, 'b' => 2]                                // Pass additional parameters to the view
             ]
         ],
         'navType' => 'nav-pills'

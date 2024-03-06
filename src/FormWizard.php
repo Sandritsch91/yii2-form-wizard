@@ -64,6 +64,7 @@ class FormWizard extends Widget
      * The steps are build with the Tab widget ```yii\bootstrap5\Tabs```
      * In addition to the default options, you can also specify the following options:
      * - items['view']: string, the view file to render. Passed parameters are $model and $form
+     * - items['params']: array, additional parameters to pass to the view, only used if items['view'] is set
      * - items['items'] is not allowed
      * - items['url'] is not allowed
      * @see Tabs
@@ -171,7 +172,8 @@ class FormWizard extends Widget
             if (isset($item['view'])) {
                 $item['content'] = $this->render($item['view'], [
                     'model' => $this->model,
-                    'form' => $activeForm
+                    'form' => $activeForm,
+                    'params' => ArrayHelper::getValue($item, 'params', [])
                 ]);
             }
         }
