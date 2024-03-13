@@ -19,8 +19,8 @@
         }
     ],
     "support": {
-        "source": "https://github.com/Sandritsch91/yii2-form-wizard",
-        "issues": "https://github.com/Sandritsch91/yii2-form-wizard/issues"
+        "source": "https://github.com/sandritsch91/yii2-form-wizard",
+        "issues": "https://github.com/sandritsch91/yii2-form-wizard/issues"
     },
     "minimum-stability": "stable",
     "require": {
@@ -29,7 +29,11 @@
         "yiisoft/yii2-bootstrap5": "^2.0.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "*",
+		"codeception/module-asserts": "*",
+		"codeception/module-webdriver": "*",
+        "codeception/module-yii2": "*",
+        "codeception/specify": "*",
+        "codeception/verify": "*",
         "yiisoft/yii2-coding-standards": "*"
     },
     "autoload": {
@@ -39,7 +43,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "yiiunit\\extensions\\formwizard\\": "tests"
+			"sandritsch91\\yii2\\formwizard\\tests\\": "tests"
         }
     },
     "extra": {
