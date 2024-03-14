@@ -71,6 +71,9 @@ echo FormWizard::widget([
         // 'finishSelector' => '...',
         // 'nextSelector' => '...',
         // 'previousSelector' => '...',
+        // 'keepPosition' => true                                               // Keep scroll position on step change.
+                                                                                // Set to false to disable, or pass a selector if you have a custom scroll container.
+                                                                                // Defaults to true.
     ],
     'clientEvents' => [                                                         // Client events for the form wizard
         // 'onNext' => 'function () {...}',
@@ -186,6 +189,9 @@ $wizard = FormWizard::widget([
         ['username', 'password', 'password_validate'],
         ['email']
     ],
+    'clientOptions' => [
+        'keepPosition' => true
+    ]
 ]);
 
 echo \yii\helpers\Html::tag('div', $wizard, [

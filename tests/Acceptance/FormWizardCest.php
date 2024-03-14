@@ -74,11 +74,32 @@ class FormWizardCest
         $I->seeElement('button', ['data-formwizard' => 'finish']);
         $I->wait(1);
 
+        $I->scrollTo(Locator::find('button', ['data-formwizard' => 'finish']), 0, 150);
+        $I->wait(2);
+
+        $position = $I->executeJS('return window.formWizard.positions[3]');
+        $I->assertGreaterThan(0, $position);
+
+        $I->click('Previous');
+        $I->wait(1);
+        $I->click('Next');
+        $I->wait(1);
+
+        $position = $I->executeJS('return window.scrollY');
+        $I->assertGreaterThan(0, $position);
+
+        $I->scrollTo(Locator::find('button', ['data-formwizard' => 'finish']), 0, 150);
+        $I->wait(3);
+
         $I->click('Finish');
         $I->wait(1);
         $I->seeValidationError('Email cannot be blank.');
 
         $I->fillField('User[email]', 'john.doe@example.com');
+
+        $I->scrollTo(Locator::find('button', ['data-formwizard' => 'finish']), 0, 150);
+        $I->wait(3);
+
         $I->click('Finish');
         $I->wait(1);
         $I->see('success');

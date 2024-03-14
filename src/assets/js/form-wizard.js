@@ -11,7 +11,8 @@ class FormWizard {
             finishSelector: '[data-formwizard="finish"]',
             nextSelector: '[data-formwizard="next"]',
             previousSelector: '[data-formwizard="previous"]',
-            validateSteps: []
+            validateSteps: [],
+            keepPosition: true
         };
 
         this.callbacks = {
@@ -20,11 +21,23 @@ class FormWizard {
             onFinish: null
         };
 
-        this.messages = {};
-
         Object.assign(this.options, options);
         Object.assign(this.callbacks, callbacks);
         this.container = document.querySelector(containerSelector);
+
+        this.tabPreviousIndex = null;
+        this.tabCurrentIndex = null;
+        this.tabNextIndex = null;
+        this.tabMaxIndex = null;
+
+        this.messages = {};
+
+        this.positions = {};
+        this.scrollElement = null;
+        if (this.options.keepPosition !== false) {
+            this.scrollElement = this.options.keepPosition === true ? window : document.querySelector(this.options.keepPosition);
+        }
+
         this._bootstrap();
     }
 
@@ -126,6 +139,19 @@ class FormWizard {
                 _this.messages[attribute.name] = messages;
             });
         }
+
+        // Keep position
+        if (this.scrollElement !== null) {
+            this.scrollElement.addEventListener('scroll', (event) => {
+                let position;
+                if (this.options.keepPosition === true) {
+                    position = event.target.scrollingElement.scrollTop;
+                } else {
+                    position = document.querySelector(this.options.keepPosition).scrollTop
+                }
+                this.positions[this.tabCurrentIndex] = position;
+            });
+        }
     }
 
     /**
@@ -210,6 +236,13 @@ class FormWizard {
 
         this.tabMaxIndex = this.tabMaxIndex < this.tabCurrentIndex ? this.tabCurrentIndex : this.tabMaxIndex;
 
+        if (this.options.keepPosition !== false && Object.keys(this.positions).includes(this.tabCurrentIndex.toString())) {
+            this.scrollElement.scrollTo({
+                top: this.positions[this.tabCurrentIndex],
+                behavior: 'instant'
+            });
+        }
+
         this._updateButtons();
         this._updateTabs();
     }
@@ -230,6 +263,13 @@ class FormWizard {
         this.tabCurrentIndex = this.tabPreviousIndex;
         this.tabPreviousIndex = this.getPreviousIndex();
         this.tabNextIndex = this.getNextIndex();
+
+        if (this.options.keepPosition !== false && Object.keys(this.positions).includes(this.tabCurrentIndex.toString())) {
+            this.scrollElement.scrollTo({
+                top: this.positions[this.tabCurrentIndex],
+                behavior: 'instant',
+            });
+        }
 
         this._updateButtons();
         this._updateTabs();

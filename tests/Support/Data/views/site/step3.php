@@ -7,3 +7,6 @@ use yii\bootstrap5\ActiveForm;
 /** @var ActiveForm $form */
 
 echo $form->field($model, 'email')->textInput();
+?>
+
+<div style="height: 2000px;"></div>

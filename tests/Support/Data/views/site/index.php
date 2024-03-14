@@ -1,9 +1,11 @@
 <?php
 
+/** @var View $this */
 /** @var User $model */
 
 use sandritsch91\yii2\formwizard\FormWizard;
 use sandritsch91\yii2\formwizard\tests\Support\Data\models\User;
+use yii\web\View;
 
 echo FormWizard::widget([
     'model' => $model,
@@ -39,4 +41,7 @@ echo FormWizard::widget([
         ['username', 'password', 'password_validate'],
         ['email']
     ],
+    'clientOptions' => [
+        'keepPosition' => true
+    ]
 ]);
