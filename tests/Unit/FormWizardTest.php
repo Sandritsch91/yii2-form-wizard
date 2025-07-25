@@ -15,6 +15,7 @@ class FormWizardTest extends Unit
     protected UnitTester $tester;
     protected User $model;
     protected array $tabOptions = [
+        'id' => 'custom-form-wizard-nav',
         'options' => [
             'class' => [
                 'mb-3'
@@ -110,8 +111,8 @@ class FormWizardTest extends Unit
         $this->tester->assertEquals('#previous', $wizard->clientOptions['previousSelector']);
         $this->tester->assertEquals('[data-formwizard="next"]', $wizard->clientOptions['nextSelector']);
         $this->tester->assertEquals('[data-formwizard="finish"]', $wizard->clientOptions['finishSelector']);
+        $this->tester->assertEquals('#custom-form-wizard-nav', $wizard->clientOptions['tabSelector']);
 
-        $html = $wizard->run();
-        $this->tester->assertIsString($html);
+        $wizard->run();
     }
 }

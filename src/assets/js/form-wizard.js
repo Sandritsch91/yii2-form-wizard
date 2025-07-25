@@ -8,6 +8,7 @@
 class FormWizard {
     constructor(containerSelector, options = {}, callbacks = {}) {
         this.options = {
+            tabSelector: null,
             finishSelector: '[data-formwizard="finish"]',
             nextSelector: '[data-formwizard="next"]',
             previousSelector: '[data-formwizard="previous"]',
@@ -55,7 +56,7 @@ class FormWizard {
      * @returns {number}
      */
     getCurrentIndex() {
-        return this.getIndex(this.container.querySelector('.nav .nav-item a.active'));
+        return this.getIndex(this.container.querySelector(this.options.tabSelector + ' .nav-item a.active'));
     }
 
     /**
@@ -65,7 +66,7 @@ class FormWizard {
     getNextIndex() {
         let nextIndexCandidate = this.tabCurrentIndex + 1;
 
-        if (this.container.querySelector('.nav .nav-item:nth-child(' + nextIndexCandidate + ') a') === null) {
+        if (this.container.querySelector(this.options.tabSelector + ' .nav-item:nth-child(' + nextIndexCandidate + ') a') === null) {
             return null;
         }
         return nextIndexCandidate;
@@ -78,7 +79,7 @@ class FormWizard {
     getPreviousIndex() {
         let nextIndexCandidate = this.tabCurrentIndex - 1;
 
-        if (this.container.querySelector('.nav .nav-item:nth-child(' + nextIndexCandidate + ') a') === null) {
+        if (this.container.querySelector(this.options.tabSelector + ' .nav-item:nth-child(' + nextIndexCandidate + ') a') === null) {
             return null;
         }
 
@@ -96,12 +97,12 @@ class FormWizard {
         this.tabNextIndex = this.getNextIndex();
         this.tabMaxIndex = 1;                           // Max index user can go forwards
 
-        if (this.container.querySelectorAll('.nav .nav-item').length > 1) {
+        if (this.container.querySelectorAll(this.options.tabSelector + ' .nav-item').length > 1) {
             this.container.querySelector(this.options.previousSelector).setAttribute('disabled', 'disabled');
             this.container.querySelector(this.options.finishSelector).classList.add('d-none');
         }
 
-        this.container.querySelectorAll('.nav .nav-item a:not(.active)').forEach((element) => {
+        this.container.querySelectorAll(this.options.tabSelector + ' .nav-item a:not(.active)').forEach((element) => {
             element.classList.add('disabled');
         });
 
@@ -116,14 +117,14 @@ class FormWizard {
      */
     _addEventBindings() {
         // Buttons
-        if (this.container.querySelectorAll('.nav .nav-item').length > 1) {
+        if (this.container.querySelectorAll(this.options.tabSelector + ' .nav-item').length > 1) {
             this.container.querySelector(this.options.previousSelector).addEventListener('click', () => this._previous());
             this.container.querySelector(this.options.nextSelector).addEventListener('click', () => this._next());
         }
         this.container.querySelector(this.options.finishSelector).addEventListener('click', () => this._finish());
 
         // Tabs
-        this.container.querySelectorAll('.nav .nav-item a').forEach((element) => {
+        this.container.querySelectorAll(this.options.tabSelector + ' .nav-item a').forEach((element) => {
             element.addEventListener('click', () => {
                 this.tabCurrentIndex = this.getIndex(element.parentNode);
                 this.tabPreviousIndex = this.getPreviousIndex();
@@ -183,7 +184,7 @@ class FormWizard {
      * @private
      */
     _updateTabs() {
-        this.container.querySelectorAll('.nav .nav-item a').forEach((element) => {
+        this.container.querySelectorAll(this.options.tabSelector + ' .nav-item a').forEach((element) => {
             if (this.getIndex(element.parentNode) <= this.tabMaxIndex) {
                 element.classList.remove('disabled');
             } else {
@@ -227,7 +228,7 @@ class FormWizard {
             }
         }
 
-        let nextElement = this.container.querySelector('.nav .nav-item:nth-child(' + this.tabNextIndex + ') a');
+        let nextElement = this.container.querySelector(this.options.tabSelector + ' .nav-item:nth-child(' + this.tabNextIndex + ') a');
         bootstrap.Tab.getOrCreateInstance(nextElement).show();
 
         this.tabCurrentIndex = this.tabNextIndex;
@@ -257,7 +258,7 @@ class FormWizard {
             return false;
         }
 
-        let nextElement = this.container.querySelector('.nav .nav-item:nth-child(' + this.tabPreviousIndex + ') a');
+        let nextElement = this.container.querySelector(this.options.tabSelector + ' .nav-item:nth-child(' + this.tabPreviousIndex + ') a');
         bootstrap.Tab.getOrCreateInstance(nextElement).show();
 
         this.tabCurrentIndex = this.tabPreviousIndex;

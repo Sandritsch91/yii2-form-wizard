@@ -109,6 +109,12 @@ class FormWizard extends Widget
             }
         }
 
+        // Set default id for tabOptions
+        if (!isset($this->tabOptions['id'])) {
+            $this->tabOptions['id'] = 'form-wizard-nav';
+        }
+        $this->clientOptions['tabSelector'] = '#' . $this->tabOptions['id'];
+
         // Options
         $this->options = ArrayHelper::merge($this->options, [
             'class' => 'form-wizard'
@@ -160,7 +166,7 @@ class FormWizard extends Widget
      * @throws InvalidConfigException
      * @throws \Throwable
      */
-    public function run(): string
+    public function run(): void
     {
         // Build html
         echo Html::beginTag('div', $this->options);
@@ -204,8 +210,6 @@ class FormWizard extends Widget
         echo Html::endTag('div');
 
         $this->registerClientScript();
-
-        return '';
     }
 
     /**
@@ -225,8 +229,8 @@ class FormWizard extends Widget
 
         $id = $this->clientOptions['containerSelector'];
         $options = Json::encode($this->clientOptions);
-        $this->clientEvents = Json::encode($this->clientEvents);
-        $view->registerJs("window.formWizard = new FormWizard('$id', $options, $this->clientEvents);");
+        $clientOptions = Json::encode($this->clientEvents);
+        $view->registerJs("window.formWizard = new FormWizard('$id', $options, $clientOptions);");
     }
 
     /**
