@@ -16,13 +16,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```bash
-php composer.phar require --prefer-dist sandritsch91/yii2-form-wizard
+php composer.phar require --prefer-dist sandritsch91/yii2-widget-form-wizard
 ```
 
 or add
 
 ```json
-"sandritsch91/yii2-form-wizard": "*"
+"sandritsch91/yii2-widget-form-wizard": "*"
 ```
 
 to the require section of your composer.json
