@@ -30,7 +30,7 @@ to the require section of your composer.json
 ## Usage
 
 ```php
-use sandritsch91\yii2-form-wizard\FormWizard;
+use sandritsch91\yii2\formwizard\FormWizard;
 
 echo FormWizard::widget([
     // required
